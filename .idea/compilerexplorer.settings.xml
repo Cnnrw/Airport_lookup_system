@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerExplorerSettingsProvider">
+    <option name="enabled" value="false" />
+    <option name="localCompilerSettings">
+      <map>
+        <entry>
+          <key>
+            <LocalCompilerPath>
+              <option name="path" value="/usr/bin/c++" />
+            </LocalCompilerPath>
+          </key>
+          <value>
+            <LocalCompilerSettings>
+              <option name="name" value="GCC" />
+              <option name="version" value="Apple clang version 12.0.0 (clang-1200.0.32.2) Target: x86_64-apple-darwin19.6.0 Thread model: posix InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin " />
+              <option name="target" value="x86_64" />
+            </LocalCompilerSettings>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="initialNoticeShown" value="true" />
+  </component>
+</project>

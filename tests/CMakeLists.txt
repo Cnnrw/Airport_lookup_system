@@ -15,3 +15,8 @@ if(NOT googletest_POPULATED)
 endif()
 
 INCLUDE_DIRECTORIES(${googletest_SOURCE_DIR}/include ${googletest_SOURCE_DIR})
+
+################################################################################
+# Test Runner
+################################################################################
+
