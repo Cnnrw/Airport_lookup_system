@@ -1,7 +1,7 @@
 /*******************************************************************************
  *   File: airports_server.cpp
  * Author: Ben Targan
- *   Desc:
+ *   Desc: Airports Server
  ******************************************************************************/
 #include <cstdio>
 #include <cstdlib>
@@ -55,16 +55,15 @@ static void airports_prog_1(struct svc_req *rqstp,  register SVCXPRT *transp)
 	}
 }
 
+/**
+ * Query.
+*/
 airports_ret *airports_qry_1_svc(location *argp, struct svc_req *rqstp) {
   static airports_ret result;
   
-  // Zero-out previous query
   result = { };
-  
-  // Find 5 closest
   airport* const closest = kd5Closest(*argp);
   
-  // Copy over pointers from results
   memcpy(&result.airports_ret_u.results[0], closest, sizeof(airports));
   
   return &result;
@@ -108,5 +107,4 @@ int main (int argc, char **argv) {
   svc_run ();
   fprintf (stderr, "%s", "svc_run returned");
   exit (1);
-  /* NOTREACHED */
 }

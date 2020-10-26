@@ -87,6 +87,11 @@ AirportRecord airportFromLine(std::string &line) {
   return AirportRecord{{latit, longit}, code.substr(1, 3), name, state};
 }
 
+/**
+ * Reads in Airports from a specified file.
+ * @param path airport-locations.txt file path
+ * @return airport records loaded into TAirportRecs
+*/
 TAirportRecs load_Airports(const char* path) {
   std::ifstream airFile(path);
   
@@ -183,10 +188,10 @@ static long double distance(long double lat1, long double lon1,
 }
 
 /**
- * \brief Computes greatest circle distance between two locations
- * \param pt1 Location of point 1
- * \param pt2 Location of point 2
- * \return Circle distance in statue miles
+ * Computes greatest circle distance between two locations
+ * @param pt1 Location of point 1
+ * @param pt2 Location of point 2
+ * @return Circle distance in statue miles
  */
 static long double distance(const location& pt1, const location& pt2) {
   return distance(pt1.latitude, pt1.longitude, pt2.latitude, pt2.longitude);

@@ -34,22 +34,34 @@ bool DistAirport::operator<(const DistAirport &other) const {
   return dist < other.dist;
 }
 
+/**
+ * Stream Operator for location.
+*/
 std::ostream &operator<<(std::ostream &stream, const location &loc) {
   stream << ": " << loc.latitude << ", " << loc.longitude;
   return stream;
 }
 
+/**
+ * Stream Operator for DistAirport.
+*/
 std::ostream &operator<<(std::ostream &stream, const DistAirport &rec) {
   stream << "distance="<< rec.dist << ", code=" << rec.airport;
   return stream;
 }
 
+/**
+ * Stream Operator for airport.
+*/
 std::ostream &operator<<(std::ostream &stream, const airport &airp) {
   stream << "distance=" << airp.dist << ", code=" << airp.code 
        << ", state=" << airp.state << ", name=" << airp.name;
   return stream;
 }
 
+/**
+ * Builds the list of airports by using stream opperators.
+*/
 std::ostream& listAirports(std::ostream &stream, const airport *airp) {
   for (int i = 0; i < NRESULTS; ++i)
     stream << "\n" << airp[i] << std::endl;
@@ -57,6 +69,9 @@ std::ostream& listAirports(std::ostream &stream, const airport *airp) {
   return stream;
 }
 
+/**
+ * Stream Operator for airRet. sends to listAirports()
+*/
 std::ostream &operator<<(std::ostream &stream, const airports_ret &airRet) {
   if (airRet.err)
     stream << "Error: " << airRet.airports_ret_u.error_msg;
@@ -66,10 +81,16 @@ std::ostream &operator<<(std::ostream &stream, const airports_ret &airRet) {
   return stream;
 }
 
+/**
+ * Stream Operator for place.
+*/
 std::ostream &operator<<(std::ostream &stream, const place &p1) {
   return stream << p1.name << ", " << p1.state << " " << p1.loc;
 }
 
+/**
+ * Stream Operator for places_ret.sends to listAirports()
+*/
 std::ostream &operator<<(std::ostream &stream, const places_ret &p1Ret) {
   if (p1Ret.err) {
     stream << "Error: " << p1Ret.places_ret_u.err_msg;
@@ -81,6 +102,9 @@ std::ostream &operator<<(std::ostream &stream, const places_ret &p1Ret) {
   return stream;
 }
 
+/**
+ * Stream Operator for CityRecord.
+*/
 std::ostream &operator<<(std::ostream &stream, const CityRecord &rec) {
   stream << std::setw(25) << std::left << rec.cityName;
   stream << std::setw(0) << ", " << rec.state << " " << rec.loc;
