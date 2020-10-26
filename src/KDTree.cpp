@@ -1,6 +1,6 @@
 /*******************************************************************************
  *   File: KDTree.cpp
- * Author: Connor Wilding
+ * Author: Ben Targan
  *   Desc: Public API to build and lookup KD-Tree.
  ******************************************************************************/
 #include <algorithm>
