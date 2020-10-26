@@ -2,10 +2,10 @@
  *   File: common.cpp
  * Author: Connor Wilding
  ******************************************************************************/
-#include "common.h"
 #include <iomanip>
 #include <iostream>
 #include <utility>
+#include "common.h"
 
 // Error handling
 /******************************************************************************/

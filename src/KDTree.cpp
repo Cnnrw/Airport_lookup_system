@@ -1,18 +1,15 @@
 /*******************************************************************************
- *   \file KDTree.cpp
- * \author Connor Wilding
- *   \desc Public API to build and lookup KD-Tree.
+ *   File: KDTree.cpp
+ * Author: Connor Wilding
+ *   Desc: Public API to build and lookup KD-Tree.
  ******************************************************************************/
-
-#include "airports/KDTree.h"
-#include "common.h"
-
 #include <algorithm>
 #include <sstream>
 #include <fstream>
-
 #include <cmath>
 #include <cstring>
+#include "airports/KDTree.h"
+#include "common.h"
 
 // Tree shared between calls in this module
 static std::unique_ptr<KDTree> kdTree;

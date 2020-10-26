@@ -1,13 +1,14 @@
 /*******************************************************************************
- *   \file places_client.cpp
- * \author Connor Wilding
- *   \desc Places server client
+ *   File: places_client.cpp
+ * Author: Connor Wilding
+ *   Desc: Places server client
+ *
  ******************************************************************************/
-#include "airports/airports.h"
-#include "places/places.h"
-#include "common.h"
 #include <iostream>
 #include <unistd.h>
+#include "common.h"
+#include "airports/airports.h"
+#include "places/places.h"
 
 const char *programUsage[] = {
   "Usage: To search by name with optional state when result is ambiguous",

@@ -1,19 +1,13 @@
-INCLUDE(rpcgen)
+FIND_PROGRAM(RPCGEN_EXECUTABLE rpcgen DOC "path to the rpcgen executable")
+MARK_AS_ADVANCED(RPCGEN_EXECUTABLE)
 
-#ADD_CUSTOM_COMMAND (
-#	OUTPUT  place_airport_common.h place_airport_common_xdr.c
-#	COMMAND rpcgen -C "${CMAKE_CURRENT_BINARY_DIR}/place_airport_common.x"
-#	COMMENT "Generating place_airport_common rpc protocol header and stubs..."
-#)
+IF(NOT RPCGEN_EXECUTABLE)
+	MESSAGE(FATAL_ERROR "Could not find rpcgen")
+ENDIF()
 
-CONFIGURE_FILE(protocol/place_airport_common.x
-	${CMAKE_CURRENT_BINARY_DIR}/place_airport_common.x COPYONLY)
-
-ADD_CUSTOM_COMMAND(
-	OUTPUT place_airport_common.h
-	COMMAND ${RPCGEN_EXECUTABLE} -C -h -o place_airport_common.h "${CMAKE_CURRENT_BINARY_DIR}/place_airport_common.x"
-	COMMENT "Generating place_airport_common rpc protocol header and stubs..."
-)
+### Find tirpc and set cache vars
+CHECK_RPC()
+MESSAGE(STATUS "RPC_INCLUDE_DIRS ${RPC_INCLUDE_DIRS}")
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include)
 
@@ -63,12 +57,3 @@ TARGET_LINK_LIBRARIES(places_server common)
 ################################################################################
 ADD_EXECUTABLE(client places_client.cpp)
 TARGET_LINK_LIBRARIES(client common)
-
-SET (data_source "${CMAKE_SOURCE_DIR}/data")
-SET (data_dest "${CMAKE_BINARY_DIR}/data")
-ADD_CUSTOM_COMMAND(
-	TARGET client POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E create_symlink ${data_source} ${data_dest}
-	DEPENDS ${data_dest}
-	COMMENT "symbolic link resources folder from ${data_source} => ${data_dest}"
-)
