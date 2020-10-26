@@ -52,7 +52,7 @@ std::ostream &operator<<(std::ostream &stream, const airport &airp) {
 
 std::ostream& listAirports(std::ostream &stream, const airport *airp) {
   for (int i = 0; i < NRESULTS; ++i)
-    stream << airp[i] << std::endl;
+    stream << "\n" << airp[i] << std::endl;
   
   return stream;
 }
