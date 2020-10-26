@@ -1,8 +1,7 @@
 /*******************************************************************************
- *   \file: airportsKdTree.h
- * \author: Connor Wilding
- *   \desc: Public API to build and lookup KD-Tree.
- *
+ *   File: airportsKdTree.h
+ * Author: Connor Wilding
+ *   Desc: Public API to build and lookup KD-Tree.
  ******************************************************************************/
 #pragma once
 #include <memory>
@@ -27,7 +26,7 @@ extern "C" void initKD(const char* airportsPath);
  * \param target      Latitude / longitude of target location to perform search
  * \return Ptr to a static arr of 5 elems that does not need to be freed.
  */
-airport* kd5Closest(const location target);
+airport* kd5Closest(location target);
 
 /**
  * \struct KDNode

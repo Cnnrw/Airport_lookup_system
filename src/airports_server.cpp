@@ -27,19 +27,17 @@ static void airports_prog_1(struct svc_req *rqstp,  register SVCXPRT *transp)
 	char *(*local)(char *, struct svc_req *);
 
 	switch (rqstp->rq_proc) {
-	case NULLPROC:
-		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
-		return;
-
-	case AIRPORTS_QRY:
-		_xdr_argument = (xdrproc_t) xdr_location;
-		_xdr_result = (xdrproc_t) xdr_airports_ret;
-		local = (char *(*)(char *, struct svc_req *)) airports_qry_1_svc;
-		break;
-
-	default:
-		svcerr_noproc (transp);
-		return;
+    case NULLPROC:
+      (void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
+      return;
+    case AIRPORTS_QRY:
+      _xdr_argument = (xdrproc_t) xdr_location;
+      _xdr_result = (xdrproc_t) xdr_airports_ret;
+      local = (char *(*)(char *, struct svc_req *)) airports_qry_1_svc;
+      break;
+    default:
+      svcerr_noproc (transp);
+      return;
 	}
 	memset ((char *)&argument, 0, sizeof (argument));
 	if (!svc_getargs (transp, (xdrproc_t) _xdr_argument, (caddr_t) &argument)) {
