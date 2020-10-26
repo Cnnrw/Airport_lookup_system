@@ -9,9 +9,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-
 #include "place_airport_common.h"
-#include "../build/src/place_airport_common.h"
 
 #ifndef NDEBUG
 #define log_printf(fmt, ...) \
@@ -29,7 +27,6 @@
 
 // Error handling
 void exitWithMessage(const char *msg);
-void exitWithMessage(const std::string &msg);
 
 /**
  * \struct CityRecord
@@ -44,7 +41,7 @@ void exitWithMessage(const std::string &msg);
    
    CityRecord();
    
-   CityRecord(const std::string &cityName_,
+   CityRecord(std::string cityName_,
               const std::string &state_,
               const location &loc_);
  };
@@ -55,7 +52,7 @@ void exitWithMessage(const std::string &msg);
  * An Airport record.
  */
  struct AirportRecord {
-   location loc{};        ///< \var Location in lat / long
+   location    loc{};        ///< \var Location in lat / long
    std::string code;    ///< \var Airport 3-digit code
    std::string name;    ///< \var Full airport name.
    std::string state;   ///< \var Airport state
@@ -68,9 +65,9 @@ void exitWithMessage(const std::string &msg);
     * \param astate State airport is located in
     */
     explicit AirportRecord(location location,
-                           const std::string& acode,
-                           const std::string& aname,
-                           const std::string& astate);
+                           std::string  acode,
+                           std::string &aname,
+                           std::string &astate);
  };
 
 /**

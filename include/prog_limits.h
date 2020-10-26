@@ -11,4 +11,7 @@
 #define MAX_AIRCODE 4
 #define MAX_ERRMSG 384
 
+#define REQ_NAMED 0
+#define REQ_LAT_LONG 1
+
 #endif //PROG_LIMITS_H

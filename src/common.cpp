@@ -15,19 +15,15 @@ void exitWithMessage(const char *msg) {
   exit(-1);
 }
 
-void exitWithMessage(const std::string &msg) {
-  exitWithMessage(msg.c_str());
-}
-
 CityRecord::CityRecord() = default;
 
-CityRecord::CityRecord(const std::string& cityName_, const std::string& state_,
-                       const location& loc_) :
+CityRecord::CityRecord(std::string cityName_, const std::string &state_,
+                       const location &loc_) :
                        cityName(std::move(cityName_)), state(std::move(state_)),
                        loc(loc_) { }
 
-AirportRecord::AirportRecord(location location, const std::string& acode,
-                             const std::string& aname, const std::string& astate) :
+AirportRecord::AirportRecord(location location, std::string acode,
+                             std::string &aname, std::string &astate) :
                              loc(location), code(std::move(acode)),
                              name(std::move(aname)), state(std::move(astate)) { }
   
@@ -61,8 +57,7 @@ std::ostream &operator<<(std::ostream &strm, const airport &airp) {
   return strm;
 }
 
-std::ostream& listAirports(std::ostream &strm,
-                           const airport *airp, int size) {
+std::ostream& listAirports(std::ostream &strm, const airport *airp) {
   strm << "#   Dist Code State Name" << std::endl
        << "--+-----+----+-----+------------------------------------------"
        << std::endl;
@@ -77,7 +72,7 @@ std::ostream &operator<<(std::ostream &strm, const airports_ret &airRet) {
   if (airRet.err)
     strm << "Error: " << airRet.airports_ret_u.error_msg;
   else
-    listAirports(strm, &airRet.airports_ret_u.results[0], NRESULTS);
+    listAirports(strm, &airRet.airports_ret_u.results[0]);
   
   return strm;
 }
@@ -91,7 +86,7 @@ std::ostream &operator<<(std::ostream &strm, const places_ret &p1Ret) {
     strm << "Error: " << p1Ret.places_ret_u.err_msg;
   } else {
     strm << p1Ret.places_ret_u.results.request << std::endl;
-    listAirports(strm, &p1Ret.places_ret_u.results.results[0], NRESULTS);
+    listAirports(strm, &p1Ret.places_ret_u.results.results[0]);
   }
   
   return strm;

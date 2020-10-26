@@ -27,7 +27,7 @@ extern "C" void initKD(const char* airportsPath);
  * \param target      Latitude / longitude of target location to perform search
  * \return Ptr to a static arr of 5 elems that does not need to be freed.
  */
-airport* kd5Closest(location target);
+airport* kd5Closest(const location target);
 
 /**
  * \struct KDNode
@@ -35,8 +35,8 @@ airport* kd5Closest(location target);
  */
 struct KDNode {
   AirportRecord           airport;                ///< \var airport Airport entry
-  std::unique_ptr<KDNode> left{};         ///< \var left Left KD subtree
-  std::unique_ptr<KDNode> right{};        ///< \var right Right KD subtree
+  std::unique_ptr<KDNode> left;         ///< \var left Left KD subtree
+  std::unique_ptr<KDNode> right;        ///< \var right Right KD subtree
   
   /**
    * \brief Constructs a KD-Tree node.
@@ -44,7 +44,7 @@ struct KDNode {
    * \param lft Left subtree
    * \param rgt Right subtree
    */
-	KDNode(const AirportRecord &pt, std::unique_ptr<KDNode> lft,
+	KDNode(AirportRecord pt, std::unique_ptr<KDNode> lft,
         std::unique_ptr<KDNode> rgt);
 };
 
@@ -67,7 +67,7 @@ class KDTree {
      * \return Closest k locations
      */
     std::vector<DistAirport>
-    kClosestLocations(const location target, const size_t k = 5) const;
+    kClosestLocations(location target, size_t k = 5) const;
     
     /**
      * \brief Get number of airport records loaded into the kd tree.
@@ -76,6 +76,6 @@ class KDTree {
     size_t size() const;
   
   private:
-    TAirportRecs airports{};          ///< Airports loaded from file
-    std::unique_ptr<KDNode> root{};   ///< Root node of the KD tree.
+    TAirportRecs airports;          ///< Airports loaded from file
+    std::unique_ptr<KDNode> root;   ///< Root node of the KD tree.
 };

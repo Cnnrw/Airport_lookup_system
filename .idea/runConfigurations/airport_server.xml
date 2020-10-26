@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="airport_server" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../data/airport-locations.txt" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Airport_Lookup_System" TARGET_NAME="airport_server" CONFIG_NAME="Dev" RUN_TARGET_PROJECT_NAME="Airport_Lookup_System" RUN_TARGET_NAME="airport_server">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>

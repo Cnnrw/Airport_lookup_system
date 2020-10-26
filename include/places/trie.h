@@ -74,7 +74,7 @@ class Trie {
     struct TrieNode {
       const char            c;                             // Char associated with node
       std::pair<int, int>   idxRange{-1, -1};       // Range of entries that match
-      std::vector<TrieNode> next{};                          // Sorted list of next nodes
+      std::vector<TrieNode> next;                          // Sorted list of next nodes
       
       explicit TrieNode(char ch);
     };
@@ -125,7 +125,7 @@ class Trie {
     /**
      * \brief Place records owned by the trie. Freed it dtor.
      */
-    TPlaceRecs places{};
+    TPlaceRecs places;
     
     /**
      * \brief Root node of the Trie

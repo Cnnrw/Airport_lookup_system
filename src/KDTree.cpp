@@ -1,10 +1,10 @@
 /*******************************************************************************
- *   \file airportsKDTree.h
+ *   \file KDTree.cpp
  * \author Connor Wilding
  *   \desc Public API to build and lookup KD-Tree.
  ******************************************************************************/
 
-#include <airports/KDTree.h>
+#include "airports/KDTree.h"
 #include "common.h"
 
 #include <algorithm>
@@ -18,7 +18,7 @@
 static std::unique_ptr<KDTree> kdTree;
 
 // Helper to load airports from file. Throws IO/parse error.
-TAirportRecs loadAirports(const char*path);
+TAirportRecs loadAirports(const char* path);
 
 // Implementations of public interface methods to init and search
 /******************************************************************************/
@@ -47,7 +47,6 @@ airport* kd5Closest(const location target) {
   // Query KD-Tree and copy values and string pointers to static data
   auto closest = kdTree->kClosestLocations(target);
   const size_t nResults = std::min(closest.size(), resultArrSize);
-  
   for (size_t i = 0; i < nResults; ++i) {
     result[i].dist = closest[i].dist;
     const auto &airp = *closest[i].airport;
@@ -72,13 +71,13 @@ AirportRecord airportFromLine(std::string &line) {
   constexpr double inf = std::numeric_limits<double>::max();
   
   std::string code;         ///< Airport code
-  double lat = inf;         ///< Latitude
-  double lon = inf;         ///< Longitude
+  double latit = inf;         ///< Latitude
+  double longit = inf;         ///< Longitude
   std::string name;         ///< Full airport name
   std::string state;        ///< Airport state
   
   std::istringstream strm{ line };
-  strm >> code >> lat >> lon >> std::ws;
+  strm >> code >> latit >> longit >> std::ws;
   name.assign(std::istreambuf_iterator<char>{strm}, {});
   const auto commaIdx = name.rfind(',');
   if (commaIdx != std::string::npos) {
@@ -87,18 +86,20 @@ AirportRecord airportFromLine(std::string &line) {
   }
   
   if (code.size() != 5 ||
-      lat == inf || lon == inf ||
-      name.empty() || state.empty())
+      latit == inf || longit == inf ||
+      name.empty() || state.empty()) {
     throw std::invalid_argument("Invalid airport record: " + line);
+  }
   
-  return AirportRecord{{lat, lon}, code.substr(1, 3), name, state};
+  return AirportRecord{{latit, longit}, code.substr(1, 3), name, state};
 }
 
 TAirportRecs loadAirports(const char* path) {
   std::ifstream airFile(path);
   
-  if (!airFile)
+  if (!airFile) {
     throw std::invalid_argument("Unable to open airports file for reading.");
+  }
   
   auto airRecs = std::unique_ptr<std::vector<AirportRecord>>(
     new std::vector<AirportRecord>());
@@ -140,15 +141,15 @@ static std::unique_ptr<KDNode> construct(It fm, It to, int depth = 0);
  * \param isEvenNodeLevel Current depth of the subtree rooted at node is even.
  * \param closest OUT of the collected closest points, ordered by dist
  */
-void kClosetPimpl(const std::unique_ptr<KDNode> &node,
-                  const location &target,
-                  size_t k, bool isEvenNodeLevel,
-                  std::vector<DistAirport> &closet);
+void kClosestPimpl(const std::unique_ptr<KDNode> &node,
+                   const location &target,
+                   size_t k, bool isEvenNodeLevel,
+                   std::vector<DistAirport> &closest);
 
-KDNode::KDNode(const AirportRecord &pt, std::unique_ptr<KDNode> lft,
+KDNode::KDNode(AirportRecord pt,
+               std::unique_ptr<KDNode> lft,
                std::unique_ptr<KDNode> rgt) :
-               airport(std::move(pt)), left(std::move(lft)),
-               right(std::move(rgt)) { }
+               airport(std::move(pt)), left(std::move(lft)), right(std::move(rgt)) { }
 
 KDTree::
 KDTree(TAirportRecs airRecs) : airports(std::move(airRecs)) {
@@ -158,7 +159,7 @@ KDTree(TAirportRecs airRecs) : airports(std::move(airRecs)) {
 std::vector<DistAirport>
 KDTree::kClosestLocations(const location target, const size_t k) const {
   std::vector<DistAirport> results;
-  kClosetPimpl(root, target, k, true, results);
+  kClosestPimpl(root, target, k, true, results);
   return results;
 }
 
@@ -262,14 +263,15 @@ void kClosestPimpl(const std::unique_ptr<KDNode> &node,
                                  : target.longitude < nloc.longitude;
   
   // Visit the side closer to target
-  kClosetPimpl(leftSubtreeCloser ? node->left : node->right,
+  kClosestPimpl(leftSubtreeCloser ? node->left : node->right,
                target, k, !isEvenNodeLevel, closest);
   
   // Move nodeLoc on split plane closest to target, check if intersects
-  if (isEvenNodeLevel)
+  if (isEvenNodeLevel) {
     nloc.longitude = target.longitude;
-  else
+  } else {
     nloc.latitude = target.latitude;
+  }
   
   const auto planeMinDist = (double)distance(nloc, target);
   const bool planeIntersects = planeMinDist < closest.back().dist;

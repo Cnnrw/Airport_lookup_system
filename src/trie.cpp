@@ -1,14 +1,13 @@
 /*******************************************************************************
- *   \file Trie.cpp
+ *   \file trie.cpp
  * \author Connor Wilding
  *   \desc Trie build and lookup implementation
  ******************************************************************************/
- 
-#include <places/trie.h>
 #include <cctype>
 #include <algorithm>
 #include <fstream>
 #include <strings.h>
+#include "places/trie.h"
 
 // Forward declarations for helper functions
 /******************************************************************************/
