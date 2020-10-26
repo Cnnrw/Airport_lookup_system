@@ -15,8 +15,8 @@ extern "C" {
 
 #include "place_airport_common.h"
 
-#define AIRPORTS_PROG 0x37699174
-#define AIRPORTS_VERS 1
+#define AIRPORTS_PROG 0x37699175
+#define AIRPORTS_VERS 2
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define AIRPORTS_QRY 2

@@ -14,8 +14,8 @@ extern "C" {
 #endif
 
 
-#define PLACES_PROG 0x27699174
-#define PLACES_VERS 1
+#define PLACES_PROG 0x27699175
+#define PLACES_VERS 2
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define PLACES_QRY 1
